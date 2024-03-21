@@ -1,4 +1,4 @@
-output "env" {
+output "message" {
   value = "Welcome to the Expense Project, Env-${var.env}"
 }
 
