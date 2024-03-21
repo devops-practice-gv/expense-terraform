@@ -15,5 +15,5 @@ if [ -z "$action" ]; then
 fi
 
 rm -rf .terraform/terraform.tfstate
-terraform init -backend-config=env-"$env"/state.tfvars
-terraform $action -var-file=env-"$env"/main.tfvars -auto-approve
+terraform init -backend-config=env-$env/state.tfvars
+terraform $action -var-file=env-$env/main.tfvars -auto-approve
