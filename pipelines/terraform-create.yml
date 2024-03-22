@@ -17,5 +17,5 @@ pipelines:
             terraform-apply:
               #              timeout: 0
               tasks:
-                - exec: {command: terraform, arguments: ["init", "-backend-config=env-dev./state.tfvars"], run_if: passed}
+                - exec: {command: terraform, arguments: ["init", "-backend-config=env-dev/state.tfvars"], run_if: passed}
                 - exec: {command: terraform, arguments: ["apply", "-var-file=env-$env/main.tfvars", "-auto-approve"], run_if: passed}
