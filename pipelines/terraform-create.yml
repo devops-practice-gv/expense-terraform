@@ -1,0 +1,21 @@
+format_version: 10  # Check out tomzo git hub repo to find out more about how to best create a pipeline yml.
+pipelines:
+  expense-tf-apply:
+    group: Terraform
+    materials:
+      git-8e5959a:
+        git: https://github.com/devops-practice-gv/expense-terraform.git
+        shallow_clone: false
+        auto_update: true
+        branch: main
+    stages:
+      - DEV:
+          approval:
+            type: manual
+          #            allow_only_on_success: false
+          jobs:
+            terraform-apply:
+              #              timeout: 0
+              tasks:
+                - exec: {command: terraform, arguments: ["init", "-backend-config=env-dev./state.tfvars"], run_if: passed}
+                - exec: {command: terraform, arguments: ["apply", "-var-file=env-$env/main.tfvars", "-auto-approve"], run_if: passed}
