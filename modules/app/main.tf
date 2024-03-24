@@ -10,21 +10,17 @@ resource "aws_instance" "instance" {
 }
 
 resource "null_resource" "ansible" {
+  connection {
+    type     = "ssh"
+    user     = var.ssh_user
+    password = var.ssh_pass
+    host     = aws_instance.instance.public_ip
+  }
   provisioner "remote-exec" {
-
-    connection {
-      type     = "ssh"
-      user     = var.ssh_user
-      password = var.ssh_pass
-      host     = aws_instance.instance.public_ip
-    }
-
     inline = [
       "sudo pip3.11 install ansible",
       "ifconfig",
       "ansible-pull -i localhost, -U https://github.com/devops-practice-gv/expense-ansible expense.yml -e env=${var.env} -e role_name=${var.component} "
-
-
     ]
   }
 
