@@ -29,6 +29,9 @@ module "mysql" {
 
 #Calling  ./modules/app module for backend ******************
 module "backend" {
+
+  depends_on = [module.mysql]   # This is for dependency. Mysql need to launch first and then backend
+
   source = "./modules/app"
   instance_type = var.instance_type
   component = "backend"
