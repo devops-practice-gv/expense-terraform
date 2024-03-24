@@ -10,6 +10,9 @@ pipelines:
         branch: main
     stages:
       - DEV:
+          fetch_materials: true
+          environment_variables:
+            env: dev
           approval:
             type: manual
           #            allow_only_on_success: false
